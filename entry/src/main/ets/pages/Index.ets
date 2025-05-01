@@ -1,23 +1,14 @@
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Hello World';
+  // 控制页面跳转的对象
+  pathStack : NavPathStack = new NavPathStack();
 
   build() {
-    RelativeContainer() {
-      Text(this.message)
-        .id('HelloWorld')
-        .fontSize($r('app.float.page_text_font_size'))
-        .fontWeight(FontWeight.Bold)
-        .alignRules({
-          center: { anchor: '__container__', align: VerticalAlign.Center },
-          middle: { anchor: '__container__', align: HorizontalAlign.Center }
-        })
-        .onClick(() => {
-          this.message = 'Welcome';
-        })
-    }
-    .height('100%')
-    .width('100%')
+    Navigation(this.pathStack){
+    }.onAppear(() => {
+      this.pathStack.pushPathByName("Start", null, false);
+    })
+    .hideNavBar(true) // 设置是否隐藏导航栏，直接显示路由栈栈顶的页面
   }
 }

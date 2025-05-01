@@ -1,0 +1,20 @@
+{
+  "routerMap": [
+    {
+      "name": "Layout",
+      "pageSourceFile": "src/main/ets/pages/Layout.ets",
+      "buildFunction": "LayoutBuilder",
+      "data": {
+        "description": "这是布局页面"
+      }
+    },
+    {
+      "name": "Start",
+      "pageSourceFile": "src/main/ets/pages/Start.ets",
+      "buildFunction": "StartBuilder",
+      "data": {
+        "description": "这是广告页面"
+      }
+    }
+  ]
+}
