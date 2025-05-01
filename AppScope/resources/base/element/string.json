@@ -3,6 +3,10 @@
     {
       "name": "app_name",
       "value": "hm_cloud_music"
+    },
+    {
+      "name": "InternetReason",
+      "value": "为了获取到网络资源"
     }
   ]
 }
