@@ -1,5 +1,5 @@
 // 引入外部内容
-import { swiperList, dailyRecommend, RecommendDailyType } from "../interfaces/index"
+import { swiperList, dailyRecommend, RecommendDailyType, recommendList, RecommendListType } from "../interfaces/index"
 
 // 提取公共样式属性（后期可能会被删除）
 @Extend(Image)
@@ -125,6 +125,55 @@ export struct Recommend {
         })
       }
       .listDirection(Axis.Horizontal) // 调整list组件的布局方向
+      .height(230)
+      .scrollBar(BarState.Off) // 去除滑动条
+
+
+      // 每日歌单区域
+      this.titleBuilder('推荐歌单')
+      List() {
+        // 循环渲染多个数据
+        ForEach(recommendList, (item: RecommendListType) => {
+          // 具体数据项
+          ListItem() {
+            // 采用垂直布局
+            Column() {
+              // 采用层叠布局
+              Stack({ alignContent: Alignment.TopStart }) {
+                // 数据项的图片
+                Image(item.img)
+                  .width('100%')
+                  .height(100)
+                  .borderRadius(8)
+
+                // 文播放量
+                Text(item.count)
+                  .fontColor('#fff')
+                  .fontSize(12)
+                  .fontWeight(700)
+                  .margin(5)
+              }
+
+              // 数据项内容
+              Text(item.title)
+                .fontColor('#fff')
+                .fontSize(14)
+                .width('100%')
+                .padding(5)
+                .maxLines(2)
+                .textOverflow({ overflow: TextOverflow.Ellipsis })
+            }
+            .width('30%')
+            // .height(200)
+            // .backgroundColor(Color.Gray)
+            .margin({
+              right: 10
+            })
+          }
+        })
+      }
+      .listDirection(Axis.Horizontal)
+      .height(230)
     }
     .width('100%')
     .height('100%')
