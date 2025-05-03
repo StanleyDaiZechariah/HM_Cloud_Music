@@ -1,7 +1,4 @@
-export interface TabClass {
-  text: string
-  icon: ResourceStr
-}
+import { TabClass } from '../models/TabClass'
 
 export const tabData: TabClass[] = [
   { text: '推荐', icon: $r('app.media.ic_recommend') },

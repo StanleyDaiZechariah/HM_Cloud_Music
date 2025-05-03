@@ -15,6 +15,14 @@
       "data": {
         "description": "这是广告页面"
       }
+    },
+    {
+      "name": "Play",
+      "pageSourceFile": "src/main/ets/pages/Play.ets",
+      "buildFunction": "PlayBuilder",
+      "data": {
+        "description": "这是播放页面"
+      }
     }
   ]
 }

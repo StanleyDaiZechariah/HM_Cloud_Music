@@ -1,8 +1,11 @@
+import { AppStorageV2 } from '@kit.ArkUI';
+
 @Entry
-@Component
+@ComponentV2
 struct Index {
   // 控制页面跳转的对象
-  pathStack : NavPathStack = new NavPathStack();
+  // pathStack : NavPathStack = new NavPathStack();
+  pathStack : NavPathStack = AppStorageV2.connect(NavPathStack, 'navStack', () => new NavPathStack())!
 
   build() {
     Navigation(this.pathStack){
