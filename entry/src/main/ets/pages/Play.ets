@@ -215,9 +215,12 @@ struct Play {
                     .width(30)
 
                   // 播放按钮
-                  Image($r('app.media.ic_paused'))
+                  Image(!this.playState.isPlay ? $r('app.media.ic_play') : $r('app.media.ic_paused'))
                     .fillColor(Color.White)
                     .width(50)
+                    .onClick(() => {
+                      !this.playState.isPlay ? playerManager.singPlay(this.playState.playList[this.playState.playIndex]) : playerManager.paused()
+                    })
                   // 下一首
                   Image($r('app.media.ic_next'))
                     .fillColor(Color.White)

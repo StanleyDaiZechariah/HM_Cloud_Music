@@ -25,6 +25,7 @@ class AvPlayerManager {
         this.player?.prepare()
       } else if (state == 'prepared') {
         this.player?.play()
+        this.currentSong.isPlay = true
       }
     })
 
@@ -54,6 +55,7 @@ class AvPlayerManager {
       // 表示你选择的这一首歌在列表里面，是否是正在播放的歌曲：对比url是否相等
       if (this.currentSong.url === song.url) {
         this.player?.play()
+        this.currentSong.isPlay = true
       } else {
         // 设置新的索引，然后切歌
         this.currentSong.playIndex = this.currentSong.playList.findIndex(item => item.id === song.id)
@@ -87,6 +89,12 @@ class AvPlayerManager {
     this.currentSong.url = this.currentSong.playList[this.currentSong.playIndex].url
     // 将播放器对象中的歌曲地址切换掉
     this.player!.url = this.currentSong.url
+  }
+
+  // 暂停的方法
+  paused () {
+    this.player?.pause()
+    this.currentSong.isPlay = false
   }
 }
 

@@ -13,4 +13,7 @@ export class GlobalMusic {
   // 歌曲列表
   @Trace playIndex: number = 0 // 当前播放歌曲的索引
   @Trace playList: SongItemType[] = [] // 播放列表
+
+  // 播放和暂停功能
+  @Trace isPlay: boolean = false // 播放的状态
 }

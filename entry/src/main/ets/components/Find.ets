@@ -1,11 +1,15 @@
 import { songs, SongItemType} from '../interfaces/index'
 import { AppStorageV2 } from '@kit.ArkUI'
 import { playerManager } from '../utils/index'
+import { GlobalMusic } from '../models'
 
-@Component
+@ComponentV2
 export struct Find {
   // 页面跳转控制对象
   pathStack : NavPathStack = AppStorageV2.connect(NavPathStack, 'navStack', () => new NavPathStack())!
+  // 当前播放的歌曲
+  @Local
+  playState: GlobalMusic = AppStorageV2.connect(GlobalMusic, 'SONG_KEY', () => new GlobalMusic())!
 
   build() {
     Column() {
@@ -23,8 +27,11 @@ export struct Find {
                   .width(80)
                   .border({ radius: 8 })
                   .margin({ right: 10 })
-                Image($r('app.media.wave'))
-                  .width(24)
+                // 这个图片需要放到条件渲染中去，只有正在播放的音乐才可以使用这一张图
+                if (this.playState.url === item.url && this.playState.isPlay) {
+                  Image($r('app.media.wave'))
+                    .width(24)
+                }
               }
 
               // 字
