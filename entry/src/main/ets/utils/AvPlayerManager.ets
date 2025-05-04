@@ -96,6 +96,26 @@ class AvPlayerManager {
     this.player?.pause()
     this.currentSong.isPlay = false
   }
+
+  // 切换到上一首
+  prevPlay() {
+    this.currentSong.playIndex--
+    if (this.currentSong.playIndex < 0) {
+      // 去最后一首
+      this.currentSong.playIndex = this.currentSong.playList.length - 1
+    }
+    this.singPlay(this.currentSong.playList[this.currentSong.playIndex])
+  }
+
+  // 切换到下一首
+  nextPlay() {
+    this.currentSong.playIndex++
+    if (this.currentSong.playIndex >= this.currentSong.playList.length) {
+      // 去第一首
+      this.currentSong.playIndex = 0
+    }
+    this.singPlay(this.currentSong.playList[this.currentSong.playIndex])
+  }
 }
 
 export const playerManager: AvPlayerManager = new AvPlayerManager()
