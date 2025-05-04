@@ -18,6 +18,7 @@ class AvPlayerManager {
       this.player = await media.createAVPlayer()
     }
 
+    // 监听歌曲状态的变化
     this.player.on('stateChange', (state) => {
       if (state == 'initialized') {
         // 如果对象不为空则调用这个方法
@@ -26,6 +27,16 @@ class AvPlayerManager {
         this.player?.play()
       }
     })
+
+    // 监听歌曲时间的变化
+    this.player.on('durationUpdate', (duration) => {
+      this.currentSong.duration = duration
+    })
+
+    // 监听歌曲播放时间的变换
+    this.player.on('timeUpdate', (time) => {
+      this.currentSong.time = time
+    })
   }
 
   // 定义一个方法 用来接收播放的音乐的资源
@@ -33,6 +44,11 @@ class AvPlayerManager {
     // 如果player不为空就可以给它赋值
     this.player!.url = song.url
     this.currentSong.img = song.img
+  }
+
+  // 定义跳转进度的方法 seek
+  seekPlay(value: number) {
+    this.player?.seek(value)
   }
 }
 

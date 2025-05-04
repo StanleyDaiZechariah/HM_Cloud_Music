@@ -1,6 +1,7 @@
 import { songs, SongItemType } from '../interfaces/index'
 import { GlobalMusic } from '../models/index'
 import { AppStorageV2 } from '@kit.ArkUI'
+import { playerManager } from '../utils/index'
 
 // 跳转页面入口函数
 @Builder
@@ -180,20 +181,23 @@ struct Play {
               Column() {
                 // 进度条
                 Row({ space: 4 }) {
-                  Text("00:00")
+                  Text(this.number2time(this.playState.time))
                     .fontSize(12)
                     .fontColor(Color.White)
                   Slider({
-                    value: 0,
+                    value: this.playState.time,
                     min: 0,
-                    max: 0
+                    max: this.playState.duration
                   })
                     .layoutWeight(1)
                     .blockColor(Color.White)
                     .selectedColor(Color.White)
                     .trackColor('#ccc5c5c5')
                     .trackThickness(2)
-                  Text("00:00")
+                    .onChange((value) => {
+                      playerManager.seekPlay(value)
+                    })
+                  Text(this.number2time(this.playState.duration))
                     .fontSize(12)
                     .fontColor(Color.White)
                 }
