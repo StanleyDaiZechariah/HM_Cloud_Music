@@ -1,7 +1,5 @@
 // 引入外部内容
-import { swiperList, dailyRecommend, recommendList} from "../interfaces/index"
-import { RecommendDailyType } from '../models/RecommendDailyType'
-import { RecommendListType } from '../models/RecommendListType'
+import { swiperList, dailyRecommend, recommendList, RecommendDailyType, RecommendListType} from "../interfaces/index"
 
 // 提取公共样式属性（后期可能会被删除）
 @Extend(Image)

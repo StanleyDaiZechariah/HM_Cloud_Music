@@ -1,7 +1,6 @@
 // 引入外部的资源
 import { Find, Mine, Moment, Recommend } from '../components'
-import { tabData } from '../interfaces/index'
-import { TabClass } from '../models/TabClass'
+import { tabData, TabClass } from '../interfaces/index'
 
 // 跳转页面入口函数
 @Builder

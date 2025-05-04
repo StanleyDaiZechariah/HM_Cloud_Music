@@ -1,5 +1,4 @@
-import { SongItemType } from '../models/SongItemType'
-import { songs } from '../interfaces/iSongs'
+import { songs, SongItemType } from '../interfaces/index'
 
 // 跳转页面入口函数
 @Builder
@@ -8,6 +7,7 @@ export function PlayBuilder() {
 }
 
 @ComponentV2
+@Preview
 struct Play {
   @Local panelHeight: string = '0%'
   @Local panelOpacity: number = 0

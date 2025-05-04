@@ -1,4 +1,11 @@
-import { SongItemType } from '../models/SongItemType'
+// 音乐接口
+export interface SongItemType {
+  img: string
+  name: string
+  author: string
+  url: string
+  id:string
+}
 
 // 音乐歌单数据
 export const songs: SongItemType[] = [

@@ -1,5 +1,4 @@
-import { songs } from '../interfaces/iSongs'
-import { SongItemType } from '../models/SongItemType'
+import { songs, SongItemType} from '../interfaces/index'
 import { AppStorageV2 } from '@kit.ArkUI'
 
 @Component
