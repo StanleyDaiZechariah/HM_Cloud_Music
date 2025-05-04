@@ -1,4 +1,6 @@
 import { songs, SongItemType } from '../interfaces/index'
+import { GlobalMusic } from '../models/index'
+import { AppStorageV2 } from '@kit.ArkUI'
 
 // 跳转页面入口函数
 @Builder
@@ -14,7 +16,8 @@ struct Play {
   pathStack: NavPathStack = new NavPathStack();
   // 当前播放的歌曲
   @Local
-  playState: SongItemType = songs[0];
+  // playState: SongItemType = songs[0];
+  playState: GlobalMusic = AppStorageV2.connect(GlobalMusic, 'SONG_KEY', () => new GlobalMusic())!
 
   // 删除按钮的自定义结构样式
   @Builder
