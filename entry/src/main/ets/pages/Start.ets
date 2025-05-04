@@ -10,11 +10,13 @@ struct Start {
   pathStack: NavPathStack = new NavPathStack()
   // 实现一个倒计时，当广告页（Start）静止不动超过一定时间后就自动跳转到别的页面
   // 这里我们借助生命周期函数来完成
-  time: number = 3000
+  duration: number = 3000
+  // 设置一个计时器对象
+  timer: number = 0
   aboutToAppear(): void {
-    setTimeout(() => {
+    this.timer = setTimeout(() => {
       this.pathStack.replacePathByName("Layout", null, false)
-    }, this.time)
+    }, this.duration)
   }
 
   build() {
@@ -40,6 +42,8 @@ struct Start {
             // this.pathStack.pushPathByName("Layout", null, false)
             // 为了防止回到广告页面，我们需要使用replace
             this.pathStack.replacePathByName("Layout", null ,false)
+            // 同时还要销毁计时器
+            clearTimeout(this.timer)
           })
 
       }
