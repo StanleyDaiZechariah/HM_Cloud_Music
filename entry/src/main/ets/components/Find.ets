@@ -1,5 +1,6 @@
 import { songs, SongItemType} from '../interfaces/index'
 import { AppStorageV2 } from '@kit.ArkUI'
+import { playerManager } from '../utils/index'
 
 @Component
 export struct Find {
@@ -13,7 +14,7 @@ export struct Find {
         .width('100%')
         .margin({ bottom: 10 })
       List() {
-        ForEach(songs, (item: SongItemType, index: number) => {
+        ForEach(songs, (item: SongItemType) => {
           ListItem() {
             Row() {
               // 图
@@ -62,6 +63,7 @@ export struct Find {
             .margin({ bottom: 10 })
             .onClick(() => {
               this.pathStack.pushPathByName('Play', null, false)
+              playerManager.singPlay(item)
             })
 
           }
