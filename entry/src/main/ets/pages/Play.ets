@@ -29,7 +29,14 @@ struct Play {
       .width(80)
       .height('100%')
       .type(ButtonType.Normal)
-
+      .onClick(() => {
+        // 接收到某个歌曲的索引然后将他从列表中删除
+        playerManager.removeSong(index)
+        // 如果列表里面没有歌曲就回退到歌曲列表中去
+        if (this.playState.playList.length === 0) {
+          this.pathStack.pop()
+        }
+      })
   }
 
   // 播放计时器的逻辑
@@ -300,7 +307,7 @@ struct Play {
               .justifyContent(FlexAlign.Center)
 
               Row({ space: 8 }) {
-                Text(`播放列表 (0)`)
+                Text(`播放列表 (${this.playState.playList.length})`)
                   .fontColor(Color.White)
                   .fontSize(14)
               }
@@ -364,8 +371,12 @@ struct Play {
                       .fillColor(Color.Gray)
                   }
                   .alignItems(VerticalAlign.Center)
+                  .onClick(() => {
+                    playerManager.singPlay(item)
+                  })
                 }
                 .swipeAction({
+                  // 在列表项最右边显示一个删除按钮
                   end: this.deleteButton(index)
                 })
                 .border({

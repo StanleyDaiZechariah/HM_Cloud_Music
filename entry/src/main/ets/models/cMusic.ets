@@ -25,4 +25,18 @@ export class GlobalMusic {
 
   // 播放模式
   @Trace playMode: SongPlayMode = SongPlayMode.AUTO
+
+  // 重置数据的方法
+  resetMusic () {
+    this.img = ""
+    this.name = ""
+    this.author = ""
+    this.url = ""
+    this.time = 0
+    this.duration = 0
+    this.playIndex = 0
+    this.playList = []
+    this.isPlay = false
+    this.playMode = SongPlayMode.AUTO
+  }
 }

@@ -139,6 +139,34 @@ class AvPlayerManager {
     // 播放音乐
     this.singPlay(this.currentSong.playList[this.currentSong.playIndex])
   }
+
+  // 删除列表中的歌曲
+  removeSong (index: number) {
+    if (index === this.currentSong.playIndex) {
+      // 删除正在播放的歌曲
+      if (this.currentSong.playList.length > 1) {
+        // 列表里面有很多首歌
+        this.currentSong.playList.splice(index, 1)
+        // 如果播放索引大于等于了列表长度，就回去播放第一首歌
+        if (this.currentSong.playIndex >= this.currentSong.playList.length) {
+          this.currentSong.playIndex = 0
+        }
+        // 播放歌曲
+        this.singPlay(this.currentSong.playList[this.currentSong.playIndex])
+      } else {
+        // 列表里面只有一首歌
+        this.player?.reset()
+        this.currentSong.resetMusic()
+      }
+    } else {
+      // 删除未播放的歌曲
+      if (index < this.currentSong.playIndex) {
+        // 要删除的歌曲在播放的歌曲前面
+        this.currentSong.playIndex--
+      }
+      this.currentSong.playList.splice(index, 1)
+    }
+  }
 }
 
 export const playerManager: AvPlayerManager = new AvPlayerManager()
