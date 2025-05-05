@@ -29,17 +29,21 @@ class AvPlayerManager {
         this.currentSong.isPlay = true
       } else if (state == 'completed') {
         this.nextPlay(true) // 自动下一首
+      } else if (state == 'released') {
+        this.currentSong.resetMusic()
       }
     })
 
     // 监听歌曲时间的变化
     this.player.on('durationUpdate', (duration) => {
       this.currentSong.duration = duration
+      sessionManager.setMetaData(this.currentSong.playList[this.currentSong.playIndex])
     })
 
     // 监听歌曲播放时间的变换
     this.player.on('timeUpdate', (time) => {
       this.currentSong.time = time
+      sessionManager.setAVPlayBackState()
     })
   }
 
@@ -53,6 +57,8 @@ class AvPlayerManager {
   singPlay(song: SongItemType) {
     // 申请长时任务
     sessionManager.startBackgroundTask()
+    // 设置后台状态
+    sessionManager.setAVPlayBackState()
     // 判断某一首歌是不是在列表里面，
     // some方法 检查数组里的数据是否满足某个条件 -> 只要有一个满足some 返回 true
     const inList = this.currentSong.playList.some(item => item.id === song.id)
@@ -100,6 +106,7 @@ class AvPlayerManager {
   paused () {
     this.player?.pause()
     this.currentSong.isPlay = false
+    sessionManager.setAVPlayBackState()
   }
 
   // 切换到上一首： 根据播放模式来计算下一首或者上一首歌的索引
@@ -169,6 +176,11 @@ class AvPlayerManager {
       }
       this.currentSong.playList.splice(index, 1)
     }
+  }
+
+  // 释放播放器 和 播放控制
+  async releasePlayer() {
+    await this.player?.release()
   }
 }
 

@@ -36,6 +36,10 @@ export default class EntryAbility extends UIAbility {
   onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
+
+    // 注销会话和播放器
+   sessionManager.destroySession()
+    playerManager.releasePlayer()
   }
 
   onForeground(): void {
