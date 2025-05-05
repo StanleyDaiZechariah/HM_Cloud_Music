@@ -1,5 +1,5 @@
 import { songs, SongItemType } from '../interfaces/index'
-import { GlobalMusic } from '../models/index'
+import { GlobalMusic, SongPlayMode } from '../models/index'
 import { AppStorageV2 } from '@kit.ArkUI'
 import { playerManager } from '../utils/index'
 
@@ -206,9 +206,28 @@ struct Play {
 
                 // 切换
                 Row() {
-                  Image($r('app.media.ic_auto'))
-                    .fillColor(Color.White)
-                    .width(30)
+                  if (this.playState.playMode === SongPlayMode.AUTO) {
+                    Image($r('app.media.ic_auto'))
+                      .fillColor(Color.White)
+                      .width(30)
+                      .onClick(() => {
+                        this.playState.playMode = SongPlayMode.RANDOM
+                      })
+                  } else if (this.playState.playMode === SongPlayMode.RANDOM) {
+                    Image($r('app.media.ic_random'))
+                      .fillColor(Color.White)
+                      .width(30)
+                      .onClick(() => {
+                        this.playState.playMode = SongPlayMode.REPEAT
+                      })
+                  } else {
+                    Image($r('app.media.ic_repeat'))
+                      .fillColor(Color.White)
+                      .width(30)
+                      .onClick(() => {
+                        this.playState.playMode = SongPlayMode.AUTO
+                      })
+                  }
 
                   Image($r("app.media.ic_prev"))
                     .fillColor(Color.White)
@@ -311,7 +330,7 @@ struct Play {
 
             // 播放列表
             List() {
-              ForEach(songs, (item: SongItemType, index: number) => {
+              ForEach(this.playState.playList, (item: SongItemType, index: number) => {
                 ListItem() {
                   Row() {
                     Row() {

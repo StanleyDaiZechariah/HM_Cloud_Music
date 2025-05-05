@@ -1,5 +1,11 @@
 import { SongItemType } from "../interfaces/index"
 
+export enum SongPlayMode {
+  AUTO = 'auto',
+  RANDOM = 'random',
+  REPEAT = 'repeat'
+}
+
 @ObservedV2
 export class GlobalMusic {
   @Trace img: string = ""  // 音乐封面
@@ -16,4 +22,7 @@ export class GlobalMusic {
 
   // 播放和暂停功能
   @Trace isPlay: boolean = false // 播放的状态
+
+  // 播放模式
+  @Trace playMode: SongPlayMode = SongPlayMode.AUTO
 }

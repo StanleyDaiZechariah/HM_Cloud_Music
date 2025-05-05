@@ -1,6 +1,6 @@
 import { media } from '@kit.MediaKit'
 import { SongItemType } from '../interfaces/index'
-import { GlobalMusic } from '../models/index'
+import { GlobalMusic, SongPlayMode } from '../models/index'
 import { AppStorageV2 } from '@kit.ArkUI'
 
 
@@ -26,6 +26,8 @@ class AvPlayerManager {
       } else if (state == 'prepared') {
         this.player?.play()
         this.currentSong.isPlay = true
+      } else if (state == 'completed') {
+        this.nextPlay(true) // 自动下一首
       }
     })
 
@@ -97,23 +99,44 @@ class AvPlayerManager {
     this.currentSong.isPlay = false
   }
 
-  // 切换到上一首
+  // 切换到上一首： 根据播放模式来计算下一首或者上一首歌的索引
+  // 随机 -> 计算随即索引
+  // 列表 -> ++
   prevPlay() {
-    this.currentSong.playIndex--
-    if (this.currentSong.playIndex < 0) {
-      // 去最后一首
-      this.currentSong.playIndex = this.currentSong.playList.length - 1
+    if (this.currentSong.playMode === SongPlayMode.RANDOM) {
+      // 随机播放：Math.random() 0~1 随即小数 左闭右开
+      this.currentSong.playIndex = Math.floor(Math.random() * this.currentSong.playList.length)
+    } else {
+      // 列表顺序播放
+      this.currentSong.playIndex--
+      if (this.currentSong.playIndex < 0) {
+        // 去最后一首
+        this.currentSong.playIndex = this.currentSong.playList.length - 1
+      }
     }
     this.singPlay(this.currentSong.playList[this.currentSong.playIndex])
   }
 
-  // 切换到下一首
-  nextPlay() {
-    this.currentSong.playIndex++
-    if (this.currentSong.playIndex >= this.currentSong.playList.length) {
-      // 去第一首
-      this.currentSong.playIndex = 0
+  // 切换到下一首： 根据播放模式来计算下一首或者上一首歌的索引
+  // 重复播放 -> 播放模式为 repeat 且 播放器自动播放下一首 -> 后者是 completed 状态 -> 传入一个数据表示是自动的
+  // 随机 -> 计算随即索引
+  // 列表 -> ++
+  nextPlay(autoNextPlay?: boolean) {
+    if (this.currentSong.playMode === SongPlayMode.REPEAT && autoNextPlay === true) {
+      // 真重复播放： 索引不变
+      this.currentSong.playIndex = this.currentSong.playIndex
+    } else if (this.currentSong.playMode === SongPlayMode.RANDOM) {
+      // 随机播放：Math.random() 0~1 随即小数 左闭右开
+      this.currentSong.playIndex = Math.floor(Math.random() * this.currentSong.playList.length)
+    } else {
+      // 列表播放
+      this.currentSong.playIndex++
+      if (this.currentSong.playIndex >= this.currentSong.playList.length) {
+        // 去第一首
+        this.currentSong.playIndex = 0
+      }
     }
+    // 播放音乐
     this.singPlay(this.currentSong.playList[this.currentSong.playIndex])
   }
 }
