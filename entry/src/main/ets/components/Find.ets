@@ -1,7 +1,8 @@
-import { songs, SongItemType} from '../interfaces/index'
 import { AppStorageV2 } from '@kit.ArkUI'
+
+import { songs, SongItemType} from '../interfaces/index'
 import { playerManager } from '../utils/index'
-import { GlobalMusic } from '../models'
+import { GlobalMusic } from '../models/index'
 
 @ComponentV2
 export struct Find {

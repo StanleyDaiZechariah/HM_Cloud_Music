@@ -1,6 +1,7 @@
+import { AppStorageV2 } from '@kit.ArkUI'
+
 import { songs, SongItemType } from '../interfaces/index'
 import { GlobalMusic, SongPlayMode } from '../models/index'
-import { AppStorageV2 } from '@kit.ArkUI'
 import { playerManager } from '../utils/index'
 
 // 跳转页面入口函数
