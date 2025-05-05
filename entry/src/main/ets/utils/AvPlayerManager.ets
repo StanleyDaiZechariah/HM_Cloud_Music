@@ -2,6 +2,7 @@ import { media } from '@kit.MediaKit'
 import { SongItemType } from '../interfaces/index'
 import { GlobalMusic, SongPlayMode } from '../models/index'
 import { AppStorageV2 } from '@kit.ArkUI'
+import { sessionManager } from '../utils/index'
 
 
 class AvPlayerManager {
@@ -50,6 +51,8 @@ class AvPlayerManager {
   }*/
 
   singPlay(song: SongItemType) {
+    // 申请长时任务
+    sessionManager.startBackgroundTask()
     // 判断某一首歌是不是在列表里面，
     // some方法 检查数组里的数据是否满足某个条件 -> 只要有一个满足some 返回 true
     const inList = this.currentSong.playList.some(item => item.id === song.id)

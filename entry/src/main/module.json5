@@ -31,6 +31,9 @@
               "action.system.home"
             ]
           }
+        ],
+        "backgroundModes": [
+          "audioPlayback"
         ]
       }
     ],
@@ -53,6 +56,9 @@
       {
         "name": "ohos.permission.INTERNET",
         "reason": "$string:InternetReason"
+      },
+      {
+        "name": "ohos.permission.KEEP_BACKGROUND_RUNNING"
       }
     ]
   }

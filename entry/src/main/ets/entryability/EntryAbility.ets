@@ -1,7 +1,7 @@
 import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
-import { playerManager } from '../utils/index'
+import { playerManager, sessionManager } from '../utils/index'
 
 const DOMAIN = 0x0000;
 
@@ -21,6 +21,8 @@ export default class EntryAbility extends UIAbility {
 
     // 准备播放器
     playerManager.init()
+    // 初始化session对象
+    sessionManager.init(this.context)
 
     windowStage.loadContent('pages/Index', (err) => {
       if (err.code) {

@@ -7,6 +7,10 @@
     {
       "name": "InternetReason",
       "value": "为了获取到网络资源"
+    },
+    {
+      "name": "BackgroundReason",
+      "value": "为了保证应用在后台也可以运行"
     }
   ]
 }
