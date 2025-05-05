@@ -59,7 +59,7 @@ class AvSessionManager {
   // 设置播放状态的方法
   setAVPlayBackState () {
     this.session?.setAVPlaybackState({
-      state: (!this.playState.isPlay) ? avSession.PlaybackState.PLAYBACK_STATE_PLAY : avSession.PlaybackState.PLAYBACK_STATE_PAUSE,
+      state: this.playState.isPlay ? avSession.PlaybackState.PLAYBACK_STATE_PLAY : avSession.PlaybackState.PLAYBACK_STATE_PAUSE,
       speed: 1,
       position: {
         elapsedTime: this.playState.time, // 歌曲播放的时间
